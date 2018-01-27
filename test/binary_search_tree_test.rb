@@ -5,17 +5,42 @@ require './lib/node.rb'
 require './lib/binary_search_tree.rb'
 
 class BinarySearchTreeTest < MiniTest::Test
+  
+  def setup
+    @tree = BinarySearchTree.new
+  end
 
   def test_can_make_new_tree
-    tree = BinarySearchTree.new
-
-    assert_instance_of BinarySearchTree, tree
+    assert_instance_of BinarySearchTree, @tree
   end
 
   def test_tree_has_nil_root_by_default
-    tree = BinarySearchTree.new
+    assert_equal [nil], @tree.root.data.keys
+    assert_equal [nil], @tree.root.data.values
+  end
 
-    assert_equal nil, tree.root
+  def test_tree_root_not_empty_after_insert
+    @tree.insert(61, "Bill & Ted's Excellent Adventure")
+
+    assert_equal [61], @tree.root.data.keys
+    assert_equal ["Bill & Ted's Excellent Adventure"], @tree.root.data.values
+  end
+
+  def test_tree_insert_method_works_more_than_once_and_is_accurate
+    @tree.insert(61, "Bill & Ted's Excellent Adventure")
+    @tree.insert(16, "Johnny English")
+    @tree.insert(92, "Sharknado 3")
+    @tree.insert(50, "Hannibal Buress: Animal Furnace")
+
+    assert_equal ["Hannibal Buress: Animal Furnace"], @tree.root
+                                                           .left
+                                                           .right
+                                                           .data
+                                                           .values
+    assert_equal ["Sharknado 3"], @tree.root
+                                       .right
+                                       .data
+                                       .values
   end
 
 end
