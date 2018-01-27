@@ -1,9 +1,9 @@
-require 'pry'
+
 class Node
   attr_reader :data
   attr_accessor :left, :right
 
-  def initialize(score, title)
+  def initialize(score=nil, title=nil)
     @data = {title => score}
   end
 
@@ -12,7 +12,7 @@ class Node
   end
 
   def inspect
-    "{#{data}::#{left.inspect}:#{right.inspect}}"
+    "{#{data}::\n#{left.inspect}:\n#{right.inspect}}"
   end
 
 end
