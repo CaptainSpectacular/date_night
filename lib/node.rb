@@ -1,10 +1,9 @@
 
 class Node
-  attr_reader :data
-  attr_accessor :left, :right
+  attr_accessor :data, :left, :right
 
-  def initialize(score=nil, title=nil)
-    @data = {title => score}
+  def initialize(score, title)
+    @data = {score => title}
   end
 
   def children
