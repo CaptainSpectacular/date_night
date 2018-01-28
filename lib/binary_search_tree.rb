@@ -142,10 +142,12 @@ class BinarySearchTree
 
 
   def health(depth, current = @root)
-    # return [current.data.keys[0], ] if current == nil
-    
-    # under construction
-    
+    results = sort.map{ |item| item if depth_of(item.keys[0]) == depth }.compact
+    results.map! do |item|
+      location = get_location(item.keys[0])
+      [item.keys[0], size(location), ((size(location).to_f / size) * 100).to_i]
+
+    end
   end
 
 
@@ -154,5 +156,18 @@ class BinarySearchTree
     size += size(current.left) unless current.left.nil?
     size += size(current.right) unless current.right.nil?
     size
+  end
+
+  def get_location(number, location = @root)
+    if number == location.data.keys[0]
+      return location
+
+    elsif number > location.data.keys[0]
+      location.right ? get_location(number, location.right) : false
+
+    else
+      location.left ? get_location(number, location.left) : false
+
+    end
   end
 end
