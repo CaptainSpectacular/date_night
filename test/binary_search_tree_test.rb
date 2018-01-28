@@ -78,4 +78,6 @@ class BinarySearchTreeTest < MiniTest::Test
                   {"Sharknado 3"=>92}], @tree.sort
   end
 
-end
+  def test_load_method
+    assert_equal 99, @tree.load('./movies.txt')
+  end

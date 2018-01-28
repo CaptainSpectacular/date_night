@@ -121,4 +121,21 @@ class BinarySearchTree
 
     sort(current.right, result)
   end
+  
+
+  def load(filename)
+    scores = []
+    titles = []
+    File.readlines(filename).each do |line| 
+      line = line.strip.split(', ', 2)
+      scores << line[0]
+      titles << line[1]
+    end
+
+    scores.map!(&:to_i)
+
+    combine = scores.zip(titles).each{ |item| insert(item[0], item[1]) }
+
+    combine.size
+  end
 end
