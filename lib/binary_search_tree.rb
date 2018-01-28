@@ -58,4 +58,22 @@ class BinarySearchTree
 
     end
   end
+
+  def depth_of(number, current = @root, depth = 0)
+    if include?(number)
+      if number == current.data.keys[0]
+        return depth
+      elsif number > current.data.keys[0]
+        depth += 1
+        current = current.right
+        depth_of(number, current, depth)
+      else
+        depth += 1
+        current = current.left
+        depth_of(number, current, depth)
+      end
+    else
+      "Value does not exist"
+    end
+  end
 end
