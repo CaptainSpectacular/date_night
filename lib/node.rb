@@ -11,7 +11,7 @@ class Node
   end
 
   def inspect
-    "{#{data}::\n#{left.inspect}:\n#{right.inspect}}"
+    "{#{data}\n::#{children}}"
   end
 
 end
