@@ -81,3 +81,11 @@ class BinarySearchTreeTest < MiniTest::Test
   def test_load_method
     assert_equal 99, @tree.load('./movies.txt')
   end
+
+  def test_size_method
+    @tree.insert(105, "one o five")
+    @tree.load('./movies.txt')
+
+    assert_equal 100, @tree.size
+  end
+end

@@ -70,6 +70,7 @@ class BinarySearchTree
     if include?(number)
       if number == current.data.keys[0]
         return depth
+
       elsif number > current.data.keys[0]
         depth += 1
         current = current.right
@@ -121,7 +122,7 @@ class BinarySearchTree
 
     sort(current.right, result)
   end
-  
+
 
   def load(filename)
     scores = []
@@ -137,5 +138,21 @@ class BinarySearchTree
     combine = scores.zip(titles).each{ |item| insert(item[0], item[1]) }
 
     combine.size
+  end
+
+
+  def health(depth, current = @root)
+    # return [current.data.keys[0], ] if current == nil
+    
+    # under construction
+    
+  end
+
+
+  def size(current = @root)
+    size = 1
+    size += size(current.left) unless current.left.nil?
+    size += size(current.right) unless current.right.nil?
+    size
   end
 end
