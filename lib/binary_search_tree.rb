@@ -8,6 +8,7 @@ class BinarySearchTree
     @root = Node.new(nil, nil)
   end
 
+
   def insert(score, title, position = @root)
     if root.data == {nil => nil}
       @root = Node.new(score, title)
@@ -21,6 +22,7 @@ class BinarySearchTree
     end
   end
 
+
   def go_right(score, title, position)
     if position.right == nil
       position.right = Node.new(score, title)
@@ -31,6 +33,7 @@ class BinarySearchTree
 
     end
   end
+
 
   def go_left(score, title, position)
     if position.left == nil
@@ -43,9 +46,11 @@ class BinarySearchTree
     end
   end
 
+
   def stop
     "Value already exists."
   end
+
 
   def include?(number, current = @root)
     if number == current.data.keys[0]
@@ -59,6 +64,7 @@ class BinarySearchTree
 
     end
   end
+
 
   def depth_of(number, current = @root, depth = 0)
     if include?(number)
@@ -81,6 +87,7 @@ class BinarySearchTree
     end
   end
 
+
   def max
     current = @root
 
@@ -92,6 +99,7 @@ class BinarySearchTree
     current.data
   end
 
+
   def min
     current = @root
 
@@ -101,5 +109,16 @@ class BinarySearchTree
     end
 
     current.data
+  end
+
+  
+  def sort(current = @root, result = [])
+    return result if current == nil
+
+    sort(current.left, result)
+
+    result << current.data
+
+    sort(current.right, result)
   end
 end
