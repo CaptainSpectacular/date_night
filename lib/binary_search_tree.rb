@@ -50,6 +50,7 @@ class BinarySearchTree
   def include?(number, current = @root)
     if number == current.data.keys[0]
       return true
+
     elsif number > current.data.keys[0]
       current.right ? include?(number, current.right) : false
 
@@ -67,13 +68,38 @@ class BinarySearchTree
         depth += 1
         current = current.right
         depth_of(number, current, depth)
+
       else
         depth += 1
         current = current.left
         depth_of(number, current, depth)
+
       end
+
     else
       "Value does not exist"
     end
+  end
+
+  def max
+    current = @root
+
+    while current.right
+      current = current.right
+
+    end
+
+    current.data
+  end
+
+  def min
+    current = @root
+
+    while current.left
+      current = current.left
+
+    end
+
+    current.data
   end
 end
