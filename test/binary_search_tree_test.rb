@@ -43,4 +43,19 @@ class BinarySearchTreeTest < MiniTest::Test
                                        .values
   end
 
+  def test_tree_cannot_have_duplicate_values
+    @tree.insert(92, "Sharknado 3")
+
+    assert_equal "Value already exists.", @tree.insert(92, "Sharknado 3")
+  end
+
+  def test_tree_has_include_method
+    @tree.insert(61, "Bill & Ted's Excellent Adventure")
+    @tree.insert(16, "Johnny English")
+
+    assert @tree.include?(61)
+    refute @tree.include?(12)
+    assert @tree.include?(16)
+  end
+
 end

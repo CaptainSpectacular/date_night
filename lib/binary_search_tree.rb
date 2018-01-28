@@ -44,11 +44,18 @@ class BinarySearchTree
   end
 
   def stop
-    "The value already exists."
+    "Value already exists."
+  end
+
+  def include?(number, current = @root)
+    if number == current.data.keys[0]
+      return true
+    elsif number > current.data.keys[0]
+      current.right ? include?(number, current.right) : false
+
+    else
+      current.left ? include?(number, current.left) : false
+
+    end
   end
 end
-
-tree = BinarySearchTree.new
-tree.insert(5, "five")
-tree.insert(4, "four")
-tree.insert(3, "trhee")
