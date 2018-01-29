@@ -17,51 +17,37 @@ class BinarySearchTree
       case score <=> position.data.keys[0]
       when  1 then go_right(score, title, position)
       when -1 then go_left(score, title, position)
-      when  0 then stop
+      when  0 then "Value already exists."
       end
     end
   end
 
 
   def go_right(score, title, position)
-    if position.right == nil
-      position.right = Node.new(score, title)
-
-    else
-      position = position.right
-      insert(score, title, position)
-
+    case position.right
+    when nil then position.right = Node.new(score, title)
+    else insert(score,title, position.right)
     end
   end
 
 
   def go_left(score, title, position)
-    if position.left == nil
-      position.left = Node.new(score, title)
-
-    else
-      position = position.left
-      insert(score, title, position)
-      
+    case position.left
+    when nil then position.left = Node.new(score, title)
+    else insert(score, title, position.left)
     end
   end
 
 
-  def stop
-    "Value already exists."
-  end
-
-
   def include?(number, current = @root)
-    if number == current.data.keys[0]
-      return true
-
-    elsif number > current.data.keys[0]
-      current.right ? include?(number, current.right) : false
-
+    unless current == nil
+      case number <=> current.data.keys[0]
+      when 1  then include?(number, current.right)
+      when -1 then include?(number, current.left)
+      when 0  then true
+      end
     else
-      current.left ? include?(number, current.left) : false
-
+      false
     end
   end
 
@@ -141,9 +127,9 @@ class BinarySearchTree
   end
 
 
-  def health(depth, current = @root)
+  def health(depth)
     results = sort.map{ |item| item if depth_of(item.keys[0]) == depth }.compact
-    results.map! do |item|
+    results.map do |item|
       location = get_location(item.keys[0])
       [item.keys[0], size(location), ((size(location).to_f / size) * 100).to_i]
 
@@ -158,6 +144,7 @@ class BinarySearchTree
     size
   end
 
+  
   def get_location(number, location = @root)
     if number == location.data.keys[0]
       return location
