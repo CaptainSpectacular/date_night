@@ -41,6 +41,7 @@ class BinarySearchTreeTest < MiniTest::Test
     assert_equal 1, tree.insert(16, "Johnny English")
     assert_equal 1, tree.insert(92, "Sharknado 3")
     assert_equal 2, tree.insert(50, "Hannibal Buress: Animal Furnace")
+    assert_equal "Value already exists.", tree.insert(16, 'Johnny English')
   end
 
   def test_include_method
@@ -78,6 +79,8 @@ class BinarySearchTreeTest < MiniTest::Test
   def test_load_method
     tree = BinarySearchTree.new
     assert_equal 99, tree.load('./movies.txt')
+    assert_equal 95, @tree.load('./movies.txt')
+    assert_equal 0, @tree_two.load('./movies.txt')
   end
 
   def test_health_method
