@@ -3,15 +3,16 @@ class Node
   attr_accessor :left, :right
 
   def initialize(score, title, parent = nil)
-
     @score  = score
     @title  = title
     @parent = parent
   end
 
+
   def data
     {@title => @score}
   end
+
 
   def inspect
     "#{data}"
@@ -25,25 +26,6 @@ class Node
     when -1 then go_left(score, title)
     end
 
-  end
-
-  
-  def go_right(score, title)
-    if self.right.nil?
-      self.right = Node.new(score, title, self)
-    else
-      self.right.insert(score, title)
-    end
-
-  end
-
-
-  def go_left(score, title)
-    if self.left.nil?
-      self.left = Node.new(score, title, self)
-    else
-      self.left.insert(score, title)
-    end
   end
 
 
@@ -114,14 +96,8 @@ class Node
   end
 
 
-  def sort(current = self, result = [])
-    return result if current.nil?
-
-    sort(current.left, result)
-
-    result << current
-
-    sort(current.right, result)
+  def sort
+    sort_helper
   end
 
 
@@ -129,7 +105,6 @@ class Node
     size = 1
     size += size(start.left) unless start.left.nil?
     size += size(start.right) unless start.right.nil?
-
     size
   end
 
@@ -139,6 +114,39 @@ class Node
 
     nodes.map do |node|
       [node.score, node.size, ((node.size.to_f / size) * 100).to_i]
+    end
+  end
+
+
+  private
+
+
+  def sort_helper(current = self, result = [])
+    return result if current.nil?
+
+    sort_helper(current.left, result)
+
+    result << current
+
+    sort_helper(current.right, result)
+  end
+
+
+  def go_right(score, title)
+    if self.right.nil?
+      self.right = Node.new(score, title, self)
+    else
+      self.right.insert(score, title)
+    end
+
+  end
+
+
+  def go_left(score, title)
+    if self.left.nil?
+      self.left = Node.new(score, title, self)
+    else
+      self.left.insert(score, title)
     end
   end
 end
