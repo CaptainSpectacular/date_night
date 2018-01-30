@@ -9,8 +9,8 @@ class BinarySearchTree
 
   
   def insert(score, title)
-    unless @root.score == nil
-      @root.insert(score, title)
+    unless root.score == nil
+      root.insert(score, title)
       depth_of(score)
     else
        @root = Node.new(score, title)
@@ -20,22 +20,22 @@ class BinarySearchTree
 
 
   def include?(score)
-    @root.include?(score)
+    root.include?(score)
   end
 
   def depth_of(score)
-    location = @root.find_value(score)
+    location = root.find_value(score)
     location.depth
   end
 
   
   def sort
-    @root.sort
+    root.sort
   end
 
   
   def size
-    @root.size
+    root.size
   end
 
 
@@ -69,6 +69,6 @@ class BinarySearchTree
 
 
   def health(deep)
-    @root.health(deep)
+    root.health(deep)
   end
 end
