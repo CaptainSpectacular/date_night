@@ -27,6 +27,11 @@ class NodeTest < MiniTest::Test
     assert_equal node, node.left.parent
   end
 
+  def test_node_insert_method
+    assert_equal 1, @node.insert(90, "Ninety")
+    assert_equal "Value already exists.", @node.insert(42, "Fourty-Two")
+  end
+
   def test_node_data_is_hash_and_has_data
     assert_instance_of Hash, @node.data
     assert_equal 61, @node.score
