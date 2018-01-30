@@ -53,10 +53,12 @@ class BinarySearchTree
     scores = []
     titles = []
     file = File.open(filename)
+    
     file.readlines.each do |line|
       line = line.strip.split(', ', 2)
       scores << line[0]
       titles << line[1]
+      file.close
     end
 
     scores.map!(&:to_i)
