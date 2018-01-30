@@ -9,12 +9,14 @@ class BinarySearchTree
 
   
   def insert(score, title)
-    unless root.nil?
+    if root.nil?
+      @root = Node.new(score, title)
+      depth_of(score)
+    elsif include?(score)
+      "Value already exists."
+    else
       root.insert(score, title)
       depth_of(score)
-    else
-       @root = Node.new(score, title)
-       depth_of(score)
     end
   end
 
@@ -23,6 +25,7 @@ class BinarySearchTree
     root.include?(score)
   end
 
+  
   def depth_of(score)
     location = root.find_value(score)
     location.depth
@@ -52,6 +55,7 @@ class BinarySearchTree
   def load(filename)
     scores = []
     titles = []
+    imported = 0
     file = File.open(filename)
 
     file.readlines.each do |line|
@@ -64,9 +68,11 @@ class BinarySearchTree
     scores.map!(&:to_i)
 
     combine = scores.zip(titles)
-    combine.each { |item| insert(item[0], item[1]) }
-
-    combine.size
+    combine.each do |item| 
+      ignore = insert(item[0], item[1])
+      imported += 1 unless ignore == "Value already exists."
+    end
+    imported
   end
 
 
