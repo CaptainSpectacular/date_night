@@ -59,7 +59,7 @@ class Node
       end
     end
 
-      !location.nil?
+    !location.nil?
   end
 
 
@@ -141,7 +141,5 @@ class Node
     nodes.map do |node|
       [node.score, node.size, ((node.size.to_f / size) * 100).to_i]
     end
-  
   end
-
 end

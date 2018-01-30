@@ -81,9 +81,9 @@ class BinarySearchTreeTest < MiniTest::Test
   end
 
   def test_health_method
-    assert_equal [[71, 99, 100]],            @tree_two.health(0)
-    assert_equal [[98, 7, 100]],             @tree_three.health(0)
-    assert_equal [[58, 6, 85]],              @tree_three.health(1)
+    assert_equal [[71, 99, 100]], @tree_two.health(0)
+    assert_equal [[98, 7, 100]], @tree_three.health(0)
+    assert_equal [[58, 6, 85]], @tree_three.health(1)
     assert_equal [[36, 2, 28], [93, 3, 42]], @tree_three.health(2)
   end
 end
