@@ -4,12 +4,12 @@ class BinarySearchTree
   attr_reader :root
 
   def initialize
-    @root = Node.new(nil, nil)
+    @root = nil
   end
 
   
   def insert(score, title)
-    unless root.score == nil
+    unless root.nil?
       root.insert(score, title)
       depth_of(score)
     else
@@ -53,7 +53,7 @@ class BinarySearchTree
     scores = []
     titles = []
     file = File.open(filename)
-    
+
     file.readlines.each do |line|
       line = line.strip.split(', ', 2)
       scores << line[0]
