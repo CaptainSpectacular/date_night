@@ -1,4 +1,3 @@
-require 'pry'
 class Node
   attr_reader :data, :parent, :score, :title
   attr_accessor :left, :right
