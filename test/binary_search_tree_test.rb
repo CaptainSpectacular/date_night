@@ -12,95 +12,78 @@ class BinarySearchTreeTest < MiniTest::Test
     @tree.insert(16, "Johnny English")
     @tree.insert(92, "Sharknado 3")
     @tree.insert(50, "Hannibal Buress: Animal Furnace")
+    
+    @tree_two = BinarySearchTree.new
+    @tree_two.load('./movies.txt')
 
+    @tree_three = BinarySearchTree.new
+    @tree_three.insert(98, "Animals United")
+    @tree_three.insert(58, "Armageddon")
+    @tree_three.insert(36, "Bill & Ted's Bogus Journey")
+    @tree_three.insert(93, "Bill & Ted's Excellent Adventure")
+    @tree_three.insert(86, "Charlie's Angels")
+    @tree_three.insert(38, "Charlie's Country")
+    @tree_three.insert(69, "Collateral Damage")
   end
 
-  def test_can_make_new_tree
+  def test_tree_exists
     assert_instance_of BinarySearchTree, @tree
   end
 
-  def test_tree_has_nil_root_by_default
+  def test_tree_root_exists
+    assert_instance_of Node, @tree.root
+  end
+
+  def test_insert_method
     tree = BinarySearchTree.new
 
-    assert_equal [nil], tree.root.data.keys
-    assert_equal [nil], tree.root.data.values
+    assert_equal 0, tree.insert(61, "Bill & Ted's Excellent Adventure")
+    assert_equal 1, tree.insert(16, "Johnny English")
+    assert_equal 1, tree.insert(92, "Sharknado 3")
+    assert_equal 2, tree.insert(50, "Hannibal Buress: Animal Furnace")
   end
 
-  def test_tree_root_not_empty_after_insert
-    tree = BinarySearchTree.new
-    tree.insert(61, "Bill & Ted's Excellent Adventure")
-
-    assert_equal [61], tree.root.data.keys
-    assert_equal ["Bill & Ted's Excellent Adventure"], tree.root.data.values
+  def test_include_method
+    assert @tree_two.include?(33)
+    refute @tree_two.include?(101)
   end
 
-  def test_tree_insert_method_works_more_than_once_and_is_accurate
+  def test_sort_method
+    expected = [{"Johnny English"=>16},{"Hannibal Buress: Animal Furnace"=>50},
+    {"Bill & Ted's Excellent Adventure"=>61},{"Sharknado 3"=>92}]
 
-    assert_equal ["Hannibal Buress: Animal Furnace"], @tree.root
-                                                           .left
-                                                           .right
-                                                           .data
-                                                           .values
-    assert_equal ["Sharknado 3"], @tree.root
-                                       .right
-                                       .data
-                                       .values
-  end
-
-  def test_tree_cannot_have_duplicate_values
-    assert_equal "Value already exists.", @tree.insert(92, "Sharknado 3")
-  end
-
-  def test_tree_has_include_method
-    assert @tree.include?(61)
-    refute @tree.include?(12)
-    assert @tree.include?(16)
-  end
-
-  def test_tree_depth_of_method
-    assert_equal 0, @tree.depth_of(61)
-    assert_equal 1, @tree.depth_of(16)
-    assert_equal 1, @tree.depth_of(92)
-    assert_equal 2, @tree.depth_of(50)
-  end
-
-  def test_tree_min_and_max
-    assert_equal 16, @tree.min.keys[0]
-    assert_equal ["Johnny English"], @tree.min.values
-    assert_equal 92, @tree.max.keys[0]
-    assert_equal ["Sharknado 3"], @tree.max.values
-  end
-
-  def tree_sort_method
-    assert_equal [{"Johnny English"=>16},
-                  {"Hannibal Buress: Animal Furnace"=>50},
-                  {"Bill & Ted's Excellent Adventure"=>61},
-                  {"Sharknado 3"=>92}], @tree.sort
-  end
-
-  def test_load_method
-    assert_equal 99, @tree.load('./movies.txt')
+    assert_equal expected, @tree.sort.map{ |i| {i.title => i.score} }
   end
 
   def test_size_method
-    @tree.insert(105, "one o five")
-    @tree.load('./movies.txt')
+    assert_equal 4, @tree.size
+    assert_equal 99, @tree_two.size
+  end
 
-    assert_equal 100, @tree.size
+  def test_depth_of_method 
+    assert_equal 0, @tree.depth_of(61)
+    assert_equal 8, @tree_two.depth_of(4)
+  end
+
+  def test_min_method
+    assert_equal({"Johnny English"=>16}, {@tree.min.title => @tree.min.score})
+    assert_equal 0, @tree_two.min.score
+  end
+
+  def test_max_method
+    assert_equal({"Sharknado 3"=>92}, {@tree.max.title => @tree.max.score})
+    assert_equal 100, @tree_two.max.score
+  end
+
+  def test_load_method
+    tree = BinarySearchTree.new
+    assert_equal 99, tree.load('./movies.txt')
   end
 
   def test_health_method
-    tree = BinarySearchTree.new
-    tree.insert(98, "Animals United")
-    tree.insert(58, "Armageddon")
-    tree.insert(36, "Bill & Ted's Bogus Journey")
-    tree.insert(93, "Bill & Ted's Excellent Adventure")
-    tree.insert(86, "Charlie's Angels")
-    tree.insert(38, "Charlie's Country")
-    tree.insert(69, "Collateral Damage")
-
-    assert_equal [[98, 7, 100]], tree.health(0)
-    assert_equal [[58, 6, 85]], tree.health(1)
-    assert_equal [[36, 2, 28], [93, 3, 42]], tree.health(2)
+    assert_equal [[71, 99, 100]],            @tree_two.health(0)
+    assert_equal [[98, 7, 100]],             @tree_three.health(0)
+    assert_equal [[58, 6, 85]],              @tree_three.health(1)
+    assert_equal [[36, 2, 28], [93, 3, 42]], @tree_three.health(2)
   end
 end
