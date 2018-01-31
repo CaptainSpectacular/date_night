@@ -53,10 +53,32 @@ class BinarySearchTree
 
 
   def load(filename)
-    scores = []
-    titles = []
     imported = 0
-    file = File.open(filename)
+
+    results = read_file(filename)
+    
+    results.each do |item| 
+      ignore = insert(item[0], item[1])
+      imported += 1 unless ignore == "Value already exists."
+    end
+
+    imported
+  end
+
+
+  def health(deep)
+    root.health(deep)
+  end
+end
+
+
+private
+
+
+def read_file(filename)
+  scores = []
+  titles = []
+  file = File.open(filename)
 
     file.readlines.each do |line|
       line = line.strip.split(', ', 2)
@@ -66,17 +88,5 @@ class BinarySearchTree
     end
 
     scores.map!(&:to_i)
-
-    combine = scores.zip(titles)
-    combine.each do |item| 
-      ignore = insert(item[0], item[1])
-      imported += 1 unless ignore == "Value already exists."
-    end
-    imported
-  end
-
-
-  def health(deep)
-    root.health(deep)
-  end
+    scores.zip(titles)
 end
