@@ -19,11 +19,11 @@ class Node
   end
 
 
-  def insert(score, title)
-    case score <=> @score
-    when 1 then go_right(score, title)
+  def insert(value, title)
+    case value <=> score
+    when 1 then go_right(value, title)
     when 0 then "Value already exists."
-    when -1 then go_left(score, title)
+    when -1 then go_left(value, title)
     end
 
   end
@@ -39,7 +39,7 @@ class Node
       else break
       end
     end
-
+    
     !location.nil?
   end
 
@@ -132,21 +132,21 @@ class Node
   end
 
 
-  def go_right(score, title)
+  def go_right(value, title)
     if self.right.nil?
-      self.right = Node.new(score, title, self)
+      self.right = Node.new(value, title, self)
     else
-      self.right.insert(score, title)
+      self.right.insert(value, title)
     end
 
   end
 
 
-  def go_left(score, title)
+  def go_left(value, title)
     if self.left.nil?
-      self.left = Node.new(score, title, self)
+      self.left = Node.new(value, title, self)
     else
-      self.left.insert(score, title)
+      self.left.insert(value, title)
     end
   end
 end
