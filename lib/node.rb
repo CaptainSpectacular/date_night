@@ -1,5 +1,5 @@
 class Node
-  attr_reader :data, :parent, :score, :title
+  attr_reader :parent, :score, :title
   attr_accessor :left, :right
 
   def initialize(score, title, parent = nil)
@@ -39,7 +39,7 @@ class Node
       else break
       end
     end
-    
+
     !location.nil?
   end
 
