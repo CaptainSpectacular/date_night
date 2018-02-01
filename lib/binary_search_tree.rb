@@ -69,24 +69,25 @@ class BinarySearchTree
   def health(deep)
     root.health(deep)
   end
-end
 
-
+  
 private
 
 
-def read_file(filename)
-  scores = []
-  titles = []
-  file = File.open(filename)
+  def read_file(filename)
+    scores = []
+    titles = []
+    file = File.open(filename)
 
-    file.readlines.each do |line|
-      line = line.strip.split(', ', 2)
-      scores << line[0]
-      titles << line[1]
-      file.close
-    end
+      file.readlines.each do |line|
+        line = line.strip.split(', ', 2)
+        scores << line[0]
+        titles << line[1]
+        file.close
+      end
 
-    scores.map!(&:to_i)
-    scores.zip(titles)
+      scores.map!(&:to_i)
+      scores.zip(titles)
+  end
+
 end
